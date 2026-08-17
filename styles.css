@@ -56,10 +56,10 @@ a {
 
 .skip-link {
   position: fixed;
-  top: calc(12px + var(--safe-top));
+  top: 0;
   left: 12px;
   z-index: 100;
-  transform: translateY(-180%);
+  transform: translateY(calc(-100% - 12px));
   padding: 10px 14px;
   border-radius: 10px;
   color: var(--navy);
@@ -70,6 +70,7 @@ a {
 }
 
 .skip-link:focus {
+  top: calc(12px + var(--safe-top));
   transform: translateY(0);
 }
 

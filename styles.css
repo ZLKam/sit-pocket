@@ -638,6 +638,13 @@ footer p {
   margin: 0;
 }
 
+.footer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px 15px;
+}
+
 footer button {
   padding: 7px 0;
   border: 0;
@@ -836,6 +843,72 @@ footer button {
   cursor: pointer;
 }
 
+.shortcut-modal-icon {
+  display: grid;
+  width: 66px;
+  height: 66px;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 19px;
+  color: #058a8b;
+  background: #e6f8f6;
+  box-shadow: 0 9px 22px rgba(5, 138, 139, 0.14);
+}
+
+.shortcut-modal-icon svg {
+  width: 36px;
+  height: 36px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.shortcut-sheet .install-steps {
+  margin-bottom: 16px;
+}
+
+.shortcut-actions {
+  display: grid;
+  gap: 9px;
+}
+
+.secondary-button {
+  display: grid;
+  width: 100%;
+  min-height: 48px;
+  place-items: center;
+  border: 1px solid rgba(11, 39, 53, 0.16);
+  border-radius: 15px;
+  color: var(--navy);
+  background: #fff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.app-store-fallback {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  color: #4e626b;
+  font-size: 11px;
+  font-weight: 720;
+  text-decoration: underline;
+  text-decoration-color: rgba(78, 98, 107, 0.3);
+  text-underline-offset: 3px;
+}
+
+.shortcut-note {
+  margin: 12px 4px 0;
+  color: #718087;
+  font-size: 10px;
+  line-height: 1.45;
+  text-align: center;
+}
+
 .noscript-note {
   position: fixed;
   z-index: 110;
@@ -980,6 +1053,12 @@ body.is-standalone #footerInstallButton {
 
   .privacy-note {
     width: calc(100% - 28px);
+  }
+
+  .footer-actions {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
   }
 }
 

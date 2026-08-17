@@ -229,11 +229,10 @@
           </a>
 
           <a
-            class="launcher-card launcher-card-wide app-launch"
+            class="launcher-card launcher-card-wide shortcut-launch"
             href="https://apps.apple.com/sg/app/howden-medihub/id1448228289"
-            data-app-url="com.skubbs.medihub://"
-            data-app-name="MediHub"
-            data-search="medihub howden health medical insurance clinic claims ecard telemedicine app"
+            data-shortcut-url="shortcuts://run-shortcut?name=Open%20MediHub"
+            data-search="medihub howden health medical insurance clinic claims ecard telemedicine app apple shortcuts"
             style="--accent: #058a8b; --tint: #e6f8f6"
           >
             <span class="card-topline">
@@ -243,13 +242,13 @@
                   <path d="M10.5 16h3l1.6-3.2 2.2 6.4 1.7-3.2h2.5" />
                 </svg>
               </span>
-              <span class="type-badge">APP</span>
+              <span class="type-badge">SHORTCUT</span>
             </span>
             <span class="card-copy">
               <strong>MediHub</strong>
               <span>E-card, clinics &amp; medical claims</span>
             </span>
-            <span class="open-cue" aria-hidden="true">Open app <span>↗</span></span>
+            <span class="open-cue" aria-hidden="true">Open via Shortcut <span>↗</span></span>
           </a>
         </div>
 
@@ -275,7 +274,10 @@
 
     <footer>
       <p>Made for everyday campus life.</p>
-      <button type="button" id="footerInstallButton">How to add this to iPhone</button>
+      <div class="footer-actions">
+        <button type="button" id="medihubHelpButton">MediHub setup</button>
+        <button type="button" id="footerInstallButton">How to add this to iPhone</button>
+      </div>
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -310,6 +312,48 @@
         </ol>
 
         <button class="done-button" id="doneInstallButton" type="button">Got it</button>
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="medihubModal" hidden>
+      <section class="install-sheet shortcut-sheet" role="dialog" aria-modal="true" aria-labelledby="medihubSetupTitle" tabindex="-1">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <button class="close-button" id="closeMedihubButton" type="button" aria-label="Close MediHub setup">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+
+        <div class="shortcut-modal-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32">
+            <path d="M16 27C9.7 23.1 6 19.6 6 14.2A5.2 5.2 0 0 1 15 10a5.2 5.2 0 0 1 11 4.2C26 19.6 22.3 23.1 16 27Z" />
+            <path d="M10.5 16h3l1.6-3.2 2.2 6.4 1.7-3.2h2.5" />
+          </svg>
+        </div>
+        <p class="section-kicker">ONE-TIME SETUP</p>
+        <h2 id="medihubSetupTitle">Connect MediHub to SIT Pocket</h2>
+        <p class="install-intro">MediHub does not provide a working web launch address, so an Apple Shortcut handles the handoff.</p>
+
+        <ol class="install-steps">
+          <li>
+            <span class="step-number">1</span>
+            <span>Tap <strong>Open Shortcuts</strong> below to start a new shortcut.</span>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <span>Choose <strong>Add Action → Open App</strong>, then select <strong>Howden MediHub</strong>.</span>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <span>Rename it exactly <strong>Open MediHub</strong>, tap <strong>Done</strong>, then return here.</span>
+          </li>
+        </ol>
+
+        <div class="shortcut-actions">
+          <a class="secondary-button" id="createMedihubShortcut" href="shortcuts://create-shortcut">Open Shortcuts</a>
+          <button class="done-button" id="runMedihubShortcut" type="button">I've created it — Open MediHub</button>
+          <a class="app-store-fallback" href="https://apps.apple.com/sg/app/howden-medihub/id1448228289" target="_blank" rel="noopener noreferrer">Need the app? Open the App Store <span aria-hidden="true">↗</span></a>
+        </div>
+
+        <p class="shortcut-note">After setup, the MediHub card launches this shortcut directly. You can reopen these instructions from “MediHub setup” at the bottom of the page.</p>
       </section>
     </div>
 

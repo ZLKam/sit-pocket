@@ -46,7 +46,7 @@ Create the MediHub shortcut once on the iPhone:
 3. Rename the shortcut exactly **Open MediHub** and save it.
 4. Return to SIT Pocket and select **I've created it — Open MediHub** in the setup sheet.
 
-Future taps run `shortcuts://run-shortcut?name=Open%20MediHub`. The **MediHub setup** link in the footer reopens the instructions, and the setup sheet keeps the verified App Store destination available separately.
+The first tap on the **MediHub** card opens this setup sheet instead of the App Store. After setup, future taps run `shortcuts://run-shortcut?name=Open%20MediHub`. The **MediHub setup** link in the footer reopens the instructions, and the setup sheet keeps the verified App Store destination available separately.
 
 ## Updating a shortcut
 

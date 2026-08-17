@@ -12,7 +12,7 @@ A mobile-first launcher for the seven SIT services used most often on an iPhone.
 | ReadyTalent | `https://readytalent2.singaporetech.edu.sg/` |
 | RBS | `https://rbs.singaporetech.edu.sg/` |
 | Campus Wayfinder | `https://www.singaporetech.edu.sg/campus-wayfinder` |
-| MediHub | Tries the installed Howden MediHub app; falls back to its Singapore App Store page |
+| MediHub | Runs an Apple Shortcut that opens Howden MediHub, with a separate Singapore App Store fallback |
 
 The official destinations were checked on 17 August 2026.
 
@@ -37,8 +37,17 @@ It then launches in its own app-style window. The launcher shell remains availab
 
 ## App-link note
 
-Outlook publishes the `ms-outlook://` iPhone link used here. Howden MediHub does not publish a documented web launch link, so its shortcut makes a best-effort launch using the app's bundle scheme and then opens the verified App Store page when iOS does not hand off to the installed app. If a future MediHub update changes that behavior, only the `data-app-url` value on the MediHub card in `index.html` needs to be updated.
+Outlook publishes the `ms-outlook://` iPhone link used here. Howden MediHub does not register a working public launch scheme, so the launcher uses Apple's supported Shortcuts URL instead.
+
+Create the MediHub shortcut once on the iPhone:
+
+1. In Apple Shortcuts, create a new shortcut.
+2. Add the **Open App** action and choose **Howden MediHub**.
+3. Rename the shortcut exactly **Open MediHub** and save it.
+4. Return to SIT Pocket and select **I've created it — Open MediHub** in the setup sheet.
+
+Future taps run `shortcuts://run-shortcut?name=Open%20MediHub`. The **MediHub setup** link in the footer reopens the instructions, and the setup sheet keeps the verified App Store destination available separately.
 
 ## Updating a shortcut
 
-All labels, descriptions, and destinations are in `index.html`. After changing one, commit the update to GitHub; GitHub Pages will republish automatically. If you change cached site files, also increase `sit-pocket-v1` in `service-worker.js` to `sit-pocket-v2` so installed copies refresh promptly.
+All labels, descriptions, and destinations are in `index.html`. After changing one, commit the update to GitHub; GitHub Pages will republish automatically. If you change cached site files, also increase the `CACHE_NAME` version in `service-worker.js` so installed copies refresh promptly.

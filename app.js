@@ -7,7 +7,6 @@
   const emptyState = document.querySelector("#emptyState");
   const clearSearchButton = document.querySelector("#clearSearch");
   const installModal = document.querySelector("#installModal");
-  const installSheet = installModal?.querySelector(".install-sheet");
   const installTriggers = [
     document.querySelector("#installButton"),
     document.querySelector("#footerInstallButton"),
@@ -16,8 +15,20 @@
     document.querySelector("#closeInstallButton"),
     document.querySelector("#doneInstallButton"),
   ].filter(Boolean);
+  const medihubModal = document.querySelector("#medihubModal");
+  const medihubCard = document.querySelector(".shortcut-launch");
+  const medihubTriggers = [
+    document.querySelector("#medihubHelpButton"),
+  ].filter(Boolean);
+  const medihubClosers = [
+    document.querySelector("#closeMedihubButton"),
+  ].filter(Boolean);
+  const createMedihubShortcut = document.querySelector("#createMedihubShortcut");
+  const runMedihubShortcut = document.querySelector("#runMedihubShortcut");
   const toast = document.querySelector("#toast");
   const greeting = document.querySelector("#greeting");
+  const MEDIHUB_READY_KEY = "sit-pocket:medihub-shortcut-ready";
+  let activeModal = null;
   let lastFocusedElement = null;
   let toastTimer = null;
 
@@ -78,25 +89,31 @@
     toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2200);
   };
 
-  const openInstallModal = () => {
-    if (!installModal || !installSheet) return;
+  const openModal = (modal) => {
+    if (!modal) return;
+    if (activeModal && activeModal !== modal) activeModal.hidden = true;
     lastFocusedElement = document.activeElement;
-    installModal.hidden = false;
+    activeModal = modal;
+    modal.hidden = false;
     document.body.classList.add("modal-open");
-    requestAnimationFrame(() => installSheet.focus());
+    requestAnimationFrame(() => modal.querySelector(".install-sheet")?.focus());
   };
 
-  const closeInstallModal = () => {
-    if (!installModal) return;
-    installModal.hidden = true;
-    document.body.classList.remove("modal-open");
+  const closeModal = (modal = activeModal) => {
+    if (!modal) return;
+    modal.hidden = true;
+    if (activeModal === modal) activeModal = null;
+    document.body.classList.toggle("modal-open", Boolean(activeModal));
     if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
   };
 
+  const openInstallModal = () => openModal(installModal);
+  const openMedihubModal = () => openModal(medihubModal);
+
   const keepFocusInModal = (event) => {
-    if (event.key !== "Tab" || installModal?.hidden) return;
+    if (event.key !== "Tab" || !activeModal || activeModal.hidden) return;
     const focusable = [
-      ...installModal.querySelectorAll(
+      ...activeModal.querySelectorAll(
         'button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
       ),
     ];
@@ -137,23 +154,80 @@
     window.location.assign(appUrl);
   };
 
+  const medihubShortcutIsReady = () => {
+    try {
+      return window.localStorage.getItem(MEDIHUB_READY_KEY) === "true";
+    } catch {
+      return false;
+    }
+  };
+
+  const rememberMedihubShortcut = () => {
+    try {
+      window.localStorage.setItem(MEDIHUB_READY_KEY, "true");
+    } catch {
+      // Private browsing may block storage; the shortcut can still run this time.
+    }
+  };
+
+  const launchMedihubShortcut = () => {
+    const shortcutUrl = medihubCard?.dataset.shortcutUrl;
+    if (!isIOS || !shortcutUrl) {
+      showToast("Set up MediHub from SIT Pocket on your iPhone.");
+      return;
+    }
+    showToast("Running Open MediHub…");
+    window.location.assign(shortcutUrl);
+  };
+
+  const handleMedihubCard = (event) => {
+    if (!isIOS) return;
+    event.preventDefault();
+    if (medihubShortcutIsReady()) {
+      launchMedihubShortcut();
+    } else {
+      openMedihubModal();
+    }
+  };
+
   searchInput?.addEventListener("input", filterCards);
   clearSearchButton?.addEventListener("click", clearSearch);
 
   installTriggers.forEach((trigger) => trigger.addEventListener("click", openInstallModal));
-  installClosers.forEach((closer) => closer.addEventListener("click", closeInstallModal));
+  installClosers.forEach((closer) => closer.addEventListener("click", () => closeModal(installModal)));
+  medihubTriggers.forEach((trigger) => trigger.addEventListener("click", openMedihubModal));
+  medihubClosers.forEach((closer) => closer.addEventListener("click", () => closeModal(medihubModal)));
 
   installModal?.addEventListener("click", (event) => {
-    if (event.target === installModal) closeInstallModal();
+    if (event.target === installModal) closeModal(installModal);
+  });
+
+  medihubModal?.addEventListener("click", (event) => {
+    if (event.target === medihubModal) closeModal(medihubModal);
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && installModal && !installModal.hidden) closeInstallModal();
+    if (event.key === "Escape" && activeModal) closeModal(activeModal);
     keepFocusInModal(event);
   });
 
   document.querySelectorAll(".app-launch").forEach((card) => {
     card.addEventListener("click", launchIOSApp);
+  });
+
+  medihubCard?.addEventListener("click", handleMedihubCard);
+
+  createMedihubShortcut?.addEventListener("click", (event) => {
+    if (!isIOS) {
+      event.preventDefault();
+      showToast("Open SIT Pocket on your iPhone to create this shortcut.");
+    }
+  });
+
+  runMedihubShortcut?.addEventListener("click", () => {
+    rememberMedihubShortcut();
+    closeModal(medihubModal);
+    window.setTimeout(launchMedihubShortcut, 120);
   });
 
   if ("serviceWorker" in navigator && window.location.protocol !== "file:") {

@@ -230,9 +230,11 @@
 
           <a
             class="launcher-card launcher-card-wide shortcut-launch"
-            href="https://apps.apple.com/sg/app/howden-medihub/id1448228289"
+            href="#medihubModal"
             data-shortcut-url="shortcuts://run-shortcut?name=Open%20MediHub"
             data-search="medihub howden health medical insurance clinic claims ecard telemedicine app apple shortcuts"
+            aria-haspopup="dialog"
+            aria-controls="medihubModal"
             style="--accent: #058a8b; --tint: #e6f8f6"
           >
             <span class="card-topline">
@@ -361,6 +363,6 @@
       <p class="noscript-note">JavaScript is off. The website shortcuts still work, but search and app-launch fallbacks need JavaScript.</p>
     </noscript>
 
-    <script src="./app.js" defer></script>
+    <script src="./app.js?v=3" defer></script>
   </body>
 </html>

@@ -181,9 +181,8 @@
   };
 
   const handleMedihubCard = (event) => {
-    if (!isIOS) return;
     event.preventDefault();
-    if (medihubShortcutIsReady()) {
+    if (isIOS && medihubShortcutIsReady()) {
       launchMedihubShortcut();
     } else {
       openMedihubModal();

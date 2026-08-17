@@ -1,11 +1,6 @@
 (() => {
   "use strict";
 
-  const searchInput = document.querySelector("#shortcutSearch");
-  const cards = [...document.querySelectorAll(".launcher-card")];
-  const resultCount = document.querySelector("#resultCount");
-  const emptyState = document.querySelector("#emptyState");
-  const clearSearchButton = document.querySelector("#clearSearch");
   const installModal = document.querySelector("#installModal");
   const installTriggers = [
     document.querySelector("#installButton"),
@@ -49,36 +44,6 @@
     const hour = new Date().getHours();
     const label = hour < 12 ? "GOOD MORNING" : hour < 18 ? "GOOD AFTERNOON" : "GOOD EVENING";
     greeting.textContent = label;
-  };
-
-  const normalise = (value) =>
-    value
-      .toLowerCase()
-      .trim()
-      .replace(/[^a-z0-9]+/g, " ");
-
-  const filterCards = () => {
-    const query = normalise(searchInput?.value || "");
-    let visibleCount = 0;
-
-    cards.forEach((card) => {
-      const searchable = normalise(card.dataset.search || card.textContent || "");
-      const isMatch = !query || query.split(" ").every((term) => searchable.includes(term));
-      card.hidden = !isMatch;
-      if (isMatch) visibleCount += 1;
-    });
-
-    if (resultCount) {
-      resultCount.textContent = `${visibleCount} ${visibleCount === 1 ? "service" : "services"}`;
-    }
-    if (emptyState) emptyState.hidden = visibleCount !== 0;
-  };
-
-  const clearSearch = () => {
-    if (!searchInput) return;
-    searchInput.value = "";
-    filterCards();
-    searchInput.focus();
   };
 
   const showToast = (message) => {
@@ -189,9 +154,6 @@
     }
   };
 
-  searchInput?.addEventListener("input", filterCards);
-  clearSearchButton?.addEventListener("click", clearSearch);
-
   installTriggers.forEach((trigger) => trigger.addEventListener("click", openInstallModal));
   installClosers.forEach((closer) => closer.addEventListener("click", () => closeModal(installModal)));
   medihubTriggers.forEach((trigger) => trigger.addEventListener("click", openMedihubModal));
@@ -238,5 +200,4 @@
   }
 
   setGreeting();
-  filterCards();
 })();

@@ -14,7 +14,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="./icons/app-icon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles.css?v=4" />
 
     <title>SIT Pocket</title>
   </head>
@@ -56,21 +56,6 @@
         <p>Seven student essentials, ready when you are.</p>
       </div>
 
-      <div class="search-wrap" role="search">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="11" cy="11" r="6.5" />
-          <path d="m16 16 4 4" />
-        </svg>
-        <label class="sr-only" for="shortcutSearch">Find a student service</label>
-        <input
-          id="shortcutSearch"
-          type="search"
-          inputmode="search"
-          autocomplete="off"
-          placeholder="Find timetable, rooms, jobs…"
-        />
-        <kbd aria-hidden="true">7 links</kbd>
-      </div>
     </header>
 
     <main>
@@ -80,7 +65,7 @@
             <p class="section-kicker">YOUR SHORTCUTS</p>
             <h2 id="essentialsTitle">Student essentials</h2>
           </div>
-          <p class="result-count" id="resultCount" aria-live="polite">7 services</p>
+          <p class="service-count">7 services</p>
         </div>
 
         <div class="launcher-grid" id="launcherGrid">
@@ -89,7 +74,6 @@
             href="https://apps.apple.com/sg/app/microsoft-outlook/id951937596"
             data-app-url="ms-outlook://"
             data-app-name="Outlook"
-            data-search="outlook email mail calendar microsoft office app"
             style="--accent: #1264d9; --tint: #eaf2ff"
           >
             <span class="card-topline">
@@ -113,7 +97,6 @@
             href="https://in4sit.singaporetech.edu.sg/"
             target="_blank"
             rel="noopener noreferrer"
-            data-search="in4sit timetable exam results events loa mc medical certificate student forms admin portal"
             style="--accent: #ef5b2a; --tint: #fff0e8"
           >
             <span class="card-topline">
@@ -137,7 +120,6 @@
             href="https://xsite.singaporetech.edu.sg/d2l/loginh/"
             target="_blank"
             rel="noopener noreferrer"
-            data-search="xsite lms learning module slides tutorials labs lessons course content"
             style="--accent: #7357d9; --tint: #f0edff"
           >
             <span class="card-topline">
@@ -161,7 +143,6 @@
             href="https://readytalent2.singaporetech.edu.sg/"
             target="_blank"
             rel="noopener noreferrer"
-            data-search="readytalent career jobs student helper internship attachment iwsp work scheme employment"
             style="--accent: #197a62; --tint: #e8f6f1"
           >
             <span class="card-topline">
@@ -185,7 +166,6 @@
             href="https://rbs.singaporetech.edu.sg/"
             target="_blank"
             rel="noopener noreferrer"
-            data-search="rbs resource booking system discussion rooms sports facilities court book space"
             style="--accent: #c33f42; --tint: #fff0f0"
           >
             <span class="card-topline">
@@ -209,7 +189,6 @@
             href="https://www.singaporetech.edu.sg/campus-wayfinder"
             target="_blank"
             rel="noopener noreferrer"
-            data-search="sit virtual map campus wayfinder navigate directions room building punggol school"
             style="--accent: #087c93; --tint: #e6f6f8"
           >
             <span class="card-topline">
@@ -232,7 +211,6 @@
             class="launcher-card launcher-card-wide shortcut-launch"
             href="#medihubModal"
             data-shortcut-url="shortcuts://run-shortcut?name=Open%20MediHub"
-            data-search="medihub howden health medical insurance clinic claims ecard telemedicine app apple shortcuts"
             aria-haspopup="dialog"
             aria-controls="medihubModal"
             style="--accent: #058a8b; --tint: #e6f8f6"
@@ -254,12 +232,6 @@
           </a>
         </div>
 
-        <div class="empty-state" id="emptyState" hidden>
-          <span aria-hidden="true">⌕</span>
-          <h3>No shortcut found</h3>
-          <p>Try “rooms”, “results”, “jobs”, or “slides”.</p>
-          <button type="button" id="clearSearch">Clear search</button>
-        </div>
       </section>
 
       <section class="privacy-note" aria-label="Privacy note">
@@ -360,9 +332,9 @@
     </div>
 
     <noscript>
-      <p class="noscript-note">JavaScript is off. The website shortcuts still work, but search and app-launch fallbacks need JavaScript.</p>
+      <p class="noscript-note">JavaScript is off. The website shortcuts still work, but app-launch fallbacks need JavaScript.</p>
     </noscript>
 
-    <script src="./app.js?v=3" defer></script>
+    <script src="./app.js?v=4" defer></script>
   </body>
 </html>

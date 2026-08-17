@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b2735" />
+    <meta name="color-scheme" content="light" />
+    <meta name="description" content="A fast, private launcher for essential SIT student websites and iPhone apps." />
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="SIT Pocket" />
+
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="./icons/app-icon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="./styles.css" />
+
+    <title>SIT Pocket</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#launchers">Skip to shortcuts</a>
+
+    <header class="hero">
+      <div class="route-art" aria-hidden="true">
+        <span class="route-line route-line-one"></span>
+        <span class="route-line route-line-two"></span>
+        <span class="route-stop stop-one"></span>
+        <span class="route-stop stop-two"></span>
+        <span class="route-stop stop-three"></span>
+      </div>
+
+      <nav class="topbar" aria-label="Page controls">
+        <a class="brand" href="./" aria-label="SIT Pocket home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" role="img">
+              <path d="M7 24V11.8C7 9.7 8.7 8 10.8 8H23" />
+              <path d="m17 4 6 4-6 4" />
+              <circle cx="7" cy="24" r="2.2" />
+            </svg>
+          </span>
+          <span>SIT <strong>POCKET</strong></span>
+        </a>
+
+        <button class="install-button" id="installButton" type="button" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v11m0-11L8 7m4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7" />
+          </svg>
+          <span>Add to Home</span>
+        </button>
+      </nav>
+
+      <div class="hero-copy">
+        <p class="eyebrow" id="greeting">WELCOME BACK</p>
+        <h1>Where to?</h1>
+        <p>Seven student essentials, ready when you are.</p>
+      </div>
+
+      <div class="search-wrap" role="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="11" cy="11" r="6.5" />
+          <path d="m16 16 4 4" />
+        </svg>
+        <label class="sr-only" for="shortcutSearch">Find a student service</label>
+        <input
+          id="shortcutSearch"
+          type="search"
+          inputmode="search"
+          autocomplete="off"
+          placeholder="Find timetable, rooms, jobs…"
+        />
+        <kbd aria-hidden="true">7 links</kbd>
+      </div>
+    </header>
+
+    <main>
+      <section class="launcher-section" id="launchers" aria-labelledby="essentialsTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">YOUR SHORTCUTS</p>
+            <h2 id="essentialsTitle">Student essentials</h2>
+          </div>
+          <p class="result-count" id="resultCount" aria-live="polite">7 services</p>
+        </div>
+
+        <div class="launcher-grid" id="launcherGrid">
+          <a
+            class="launcher-card app-launch"
+            href="https://apps.apple.com/sg/app/microsoft-outlook/id951937596"
+            data-app-url="ms-outlook://"
+            data-app-name="Outlook"
+            data-search="outlook email mail calendar microsoft office app"
+            style="--accent: #1264d9; --tint: #eaf2ff"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M5 9.5A2.5 2.5 0 0 1 7.5 7h17A2.5 2.5 0 0 1 27 9.5v13a2.5 2.5 0 0 1-2.5 2.5h-17A2.5 2.5 0 0 1 5 22.5z" />
+                  <path d="m6 10 10 7 10-7" />
+                </svg>
+              </span>
+              <span class="type-badge">APP</span>
+            </span>
+            <span class="card-copy">
+              <strong>Outlook</strong>
+              <span>SIT email &amp; calendar</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Open app <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card"
+            href="https://in4sit.singaporetech.edu.sg/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-search="in4sit timetable exam results events loa mc medical certificate student forms admin portal"
+            style="--accent: #ef5b2a; --tint: #fff0e8"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="6" y="7" width="20" height="19" rx="3" />
+                  <path d="M11 4v6m10-6v6M6 13h20M11 18h4m-4 4h9" />
+                </svg>
+              </span>
+              <span class="type-badge">PORTAL</span>
+            </span>
+            <span class="card-copy">
+              <strong>in4SIT</strong>
+              <span>Timetable, results &amp; forms</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Open portal <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card"
+            href="https://xsite.singaporetech.edu.sg/d2l/loginh/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-search="xsite lms learning module slides tutorials labs lessons course content"
+            style="--accent: #7357d9; --tint: #f0edff"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M5 9.5 16 5l11 4.5L16 14z" />
+                  <path d="M9 12v8.5c3.8 2.8 10.2 2.8 14 0V12M27 10v8" />
+                </svg>
+              </span>
+              <span class="type-badge">LEARN</span>
+            </span>
+            <span class="card-copy">
+              <strong>xSiTe</strong>
+              <span>Slides, tutorials &amp; labs</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Start learning <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card"
+            href="https://readytalent2.singaporetech.edu.sg/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-search="readytalent career jobs student helper internship attachment iwsp work scheme employment"
+            style="--accent: #197a62; --tint: #e8f6f1"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="5" y="10" width="22" height="16" rx="3" />
+                  <path d="M12 10V7.5A2.5 2.5 0 0 1 14.5 5h3A2.5 2.5 0 0 1 20 7.5V10M5 16h22M13 16v3h6v-3" />
+                </svg>
+              </span>
+              <span class="type-badge">CAREER</span>
+            </span>
+            <span class="card-copy">
+              <strong>ReadyTalent</strong>
+              <span>Jobs, internships &amp; IWSP</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Find roles <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card"
+            href="https://rbs.singaporetech.edu.sg/"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-search="rbs resource booking system discussion rooms sports facilities court book space"
+            style="--accent: #c33f42; --tint: #fff0f0"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M6 27V8a2 2 0 0 1 2-2h12v21M20 11h6v16M3 27h26" />
+                  <path d="M11 11h4m-4 5h4m-4 5h4m10 0h-2" />
+                </svg>
+              </span>
+              <span class="type-badge">BOOK</span>
+            </span>
+            <span class="card-copy">
+              <strong>RBS</strong>
+              <span>Rooms &amp; sports facilities</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Book a space <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card"
+            href="https://www.singaporetech.edu.sg/campus-wayfinder"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-search="sit virtual map campus wayfinder navigate directions room building punggol school"
+            style="--accent: #087c93; --tint: #e6f6f8"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M16 28s9-7.6 9-15a9 9 0 1 0-18 0c0 7.4 9 15 9 15Z" />
+                  <circle cx="16" cy="13" r="3.2" />
+                </svg>
+              </span>
+              <span class="type-badge">MAP</span>
+            </span>
+            <span class="card-copy">
+              <strong>Wayfinder</strong>
+              <span>Navigate Punggol Campus</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Find a room <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card launcher-card-wide app-launch"
+            href="https://apps.apple.com/sg/app/howden-medihub/id1448228289"
+            data-app-url="com.skubbs.medihub://"
+            data-app-name="MediHub"
+            data-search="medihub howden health medical insurance clinic claims ecard telemedicine app"
+            style="--accent: #058a8b; --tint: #e6f8f6"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M16 27C9.7 23.1 6 19.6 6 14.2A5.2 5.2 0 0 1 15 10a5.2 5.2 0 0 1 11 4.2C26 19.6 22.3 23.1 16 27Z" />
+                  <path d="M10.5 16h3l1.6-3.2 2.2 6.4 1.7-3.2h2.5" />
+                </svg>
+              </span>
+              <span class="type-badge">APP</span>
+            </span>
+            <span class="card-copy">
+              <strong>MediHub</strong>
+              <span>E-card, clinics &amp; medical claims</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Open app <span>↗</span></span>
+          </a>
+        </div>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <span aria-hidden="true">⌕</span>
+          <h3>No shortcut found</h3>
+          <p>Try “rooms”, “results”, “jobs”, or “slides”.</p>
+          <button type="button" id="clearSearch">Clear search</button>
+        </div>
+      </section>
+
+      <section class="privacy-note" aria-label="Privacy note">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3 5 6v5c0 4.7 2.9 8.2 7 10 4.1-1.8 7-5.3 7-10V6z" />
+          <path d="m9 12 2 2 4-5" />
+        </svg>
+        <div>
+          <strong>Private by design</strong>
+          <p>No sign-ins or personal data are stored here. Each shortcut opens the official service.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Made for everyday campus life.</p>
+      <button type="button" id="footerInstallButton">How to add this to iPhone</button>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="modal-backdrop" id="installModal" hidden>
+      <section class="install-sheet" role="dialog" aria-modal="true" aria-labelledby="installTitle" tabindex="-1">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <button class="close-button" id="closeInstallButton" type="button" aria-label="Close install instructions">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+
+        <div class="install-icon" aria-hidden="true">
+          <img src="./icons/app-icon.svg" alt="" />
+        </div>
+        <p class="section-kicker">ONE-TAP ACCESS</p>
+        <h2 id="installTitle">Add SIT Pocket to your iPhone</h2>
+        <p class="install-intro">Open this page in Safari, then follow these three steps.</p>
+
+        <ol class="install-steps">
+          <li>
+            <span class="step-number">1</span>
+            <span>Tap the <strong>Share</strong> button <span class="share-symbol" aria-hidden="true">⇧</span> in Safari.</span>
+          </li>
+          <li>
+            <span class="step-number">2</span>
+            <span>Scroll down and choose <strong>Add to Home Screen</strong>.</span>
+          </li>
+          <li>
+            <span class="step-number">3</span>
+            <span>Tap <strong>Add</strong>. SIT Pocket will appear like an app.</span>
+          </li>
+        </ol>
+
+        <button class="done-button" id="doneInstallButton" type="button">Got it</button>
+      </section>
+    </div>
+
+    <noscript>
+      <p class="noscript-note">JavaScript is off. The website shortcuts still work, but search and app-launch fallbacks need JavaScript.</p>
+    </noscript>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

@@ -20,7 +20,7 @@ A mobile-first launcher for seven SIT services and five DigiPen services used on
 
 | Shortcut | Destination |
 | --- | --- |
-| DRAMA | `https://drama.digipen.edu/people/register/student` |
+| DRAMA | `https://drama.digipen.edu/` — DigiPen Resource &amp; Account Management Application |
 | Moodle | `https://distance3.sg.digipen.edu/` — choose **2026-Fall** |
 | WebMail | `https://webmail.digipen.edu/roundcube/` |
 | Online Lecture | `https://www.microsoft.com/en-sg/education/students` |

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0b2735" />
     <meta name="color-scheme" content="light" />
-    <meta name="description" content="A fast, private launcher for essential SIT student websites and iPhone apps." />
+    <meta name="description" content="A fast, private launcher for essential SIT and DigiPen student websites and iPhone apps." />
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -14,7 +14,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="./icons/app-icon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="./styles.css?v=5" />
+    <link rel="stylesheet" href="./styles.css?v=6" />
 
     <title>SIT Pocket</title>
   </head>
@@ -53,17 +53,17 @@
       <div class="hero-copy">
         <p class="eyebrow" id="greeting">WELCOME BACK</p>
         <h1>Where to?</h1>
-        <p>Seven student essentials, ready when you are.</p>
+        <p>SIT and DigiPen essentials, ready when you are.</p>
       </div>
 
     </header>
 
     <main>
-      <section class="launcher-section" id="launchers" aria-labelledby="essentialsTitle">
+      <section class="launcher-section" id="launchers" aria-labelledby="sitTitle">
         <div class="section-heading">
           <div>
-            <p class="section-kicker">YOUR SHORTCUTS</p>
-            <h2 id="essentialsTitle">Student essentials</h2>
+            <p class="section-kicker">SIT ACCESS</p>
+            <h2 id="sitTitle">SIT essentials</h2>
           </div>
           <p class="service-count">7 services</p>
         </div>
@@ -232,6 +232,133 @@
           </a>
         </div>
 
+      </section>
+
+      <section class="launcher-section digipen-section" id="digipen" aria-labelledby="digipenTitle">
+        <div class="section-heading">
+          <div>
+            <p class="section-kicker">DIGIPEN ACCESS</p>
+            <h2 id="digipenTitle">DigiPen essentials</h2>
+          </div>
+          <p class="service-count">5 services</p>
+        </div>
+
+        <div class="launcher-grid" id="digipenGrid">
+          <a
+            class="launcher-card"
+            href="https://drama.digipen.edu/people/register/student"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="--accent: #b52b36; --tint: #ffedf0"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <circle cx="12" cy="10.5" r="4" />
+                  <path d="M4.5 26c.8-5.2 3.3-7.8 7.5-7.8s6.7 2.6 7.5 7.8M23.5 9v8m-4-4h8" />
+                </svg>
+              </span>
+              <span class="type-badge">PORTAL</span>
+            </span>
+            <span class="card-copy">
+              <strong>DRAMA</strong>
+              <span>Student account registration</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Open DRAMA <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card"
+            href="https://distance3.sg.digipen.edu/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="--accent: #d85c20; --tint: #fff0e7"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <path d="M5 7.5h6.5c2 0 3.5 1 4.5 2.5 1-1.5 2.5-2.5 4.5-2.5H27v18h-6.5c-2 0-3.5.7-4.5 2-1-1.3-2.5-2-4.5-2H5z" />
+                  <path d="M16 10v17.5" />
+                </svg>
+              </span>
+              <span class="type-badge">LMS</span>
+            </span>
+            <span class="card-copy">
+              <strong>Moodle</strong>
+              <span>Choose 2026-Fall</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Open Moodle <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card"
+            href="https://webmail.digipen.edu/roundcube/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="--accent: #2964c8; --tint: #ebf2ff"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="5" y="7" width="22" height="18" rx="3" />
+                  <path d="m6 9 10 8 10-8M6 23l7-7m13 7-7-7" />
+                </svg>
+              </span>
+              <span class="type-badge">MAIL</span>
+            </span>
+            <span class="card-copy">
+              <strong>WebMail</strong>
+              <span>DigiPen email via Roundcube</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Open mail <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card"
+            href="https://www.microsoft.com/en-sg/education/students"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="--accent: #5b4bc4; --tint: #efedff"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="4.5" y="6" width="23" height="17" rx="3" />
+                  <path d="m13 11 7 4.5-7 4.5zM11 27h10m-5-4v4" />
+                </svg>
+              </span>
+              <span class="type-badge">ONLINE</span>
+            </span>
+            <span class="card-copy">
+              <strong>Online Lecture</strong>
+              <span>Microsoft Education for students</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Open resources <span>↗</span></span>
+          </a>
+
+          <a
+            class="launcher-card launcher-card-wide"
+            href="https://student-attendance.sg.digipen.edu/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="--accent: #198467; --tint: #e8f7f1"
+          >
+            <span class="card-topline">
+              <span class="service-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="6" y="6" width="20" height="20" rx="4" />
+                  <path d="M11 4v5m10-5v5M6 12h20m-15 7 3 3 7-7" />
+                </svg>
+              </span>
+              <span class="type-badge">ATTEND</span>
+            </span>
+            <span class="card-copy">
+              <strong>Attendance</strong>
+              <span>Class check-in &amp; attendance</span>
+            </span>
+            <span class="open-cue" aria-hidden="true">Check in <span>↗</span></span>
+          </a>
+        </div>
       </section>
 
       <section class="privacy-note" aria-label="Privacy note">

@@ -1,8 +1,10 @@
 # SIT Pocket
 
-A mobile-first launcher for the seven SIT services used most often on an iPhone. It is a static website with no analytics, no account storage, and no build step, so it is a good fit for GitHub Pages.
+A mobile-first launcher for seven SIT services and five DigiPen services used on an iPhone. It is a static website with no analytics, no account storage, and no build step, so it is a good fit for GitHub Pages.
 
 ## Included shortcuts
+
+### SIT
 
 | Shortcut | Destination |
 | --- | --- |
@@ -14,7 +16,17 @@ A mobile-first launcher for the seven SIT services used most often on an iPhone.
 | Campus Wayfinder | `https://www.singaporetech.edu.sg/campus-wayfinder` |
 | MediHub | Runs an Apple Shortcut that opens Howden MediHub, with a separate Singapore App Store fallback |
 
-The official destinations were checked on 17 August 2026.
+### DigiPen
+
+| Shortcut | Destination |
+| --- | --- |
+| DRAMA | `https://drama.digipen.edu/people/register/student` |
+| Moodle | `https://distance3.sg.digipen.edu/` — choose **2026-Fall** |
+| WebMail | `https://webmail.digipen.edu/roundcube/` |
+| Online Lecture | `https://www.microsoft.com/en-sg/education/students` |
+| Attendance | `https://student-attendance.sg.digipen.edu/login` |
+
+The destinations were checked on 18 August 2026.
 
 ## Publish with GitHub Pages
 

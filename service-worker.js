@@ -1,4 +1,4 @@
-const CACHE_NAME = "sit-pocket-v7";
+const CACHE_NAME = "sit-pocket-v8";
 const APP_SHELL = [
   "./",
   "./index.html",

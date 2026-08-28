@@ -23,10 +23,10 @@ A mobile-first launcher for seven SIT services and five DigiPen services used on
 | DRAMA | `https://drama.digipen.edu/` — DigiPen Resource &amp; Account Management Application |
 | Moodle | `https://distance3.sg.digipen.edu/` — choose **2026-Fall** |
 | WebMail | `https://webmail.digipen.edu/roundcube/` |
-| Online Lecture | `https://www.microsoft.com/en-sg/education/students` |
+| MS Teams | Opens the Microsoft Teams iPhone app; falls back to its Singapore App Store page |
 | Attendance | `https://student-attendance.sg.digipen.edu/login` |
 
-The destinations were checked on 18 August 2026.
+The original destinations were checked on 18 August 2026. The Microsoft Teams app link and App Store fallback were checked on 28 August 2026.
 
 ## Publish with GitHub Pages
 

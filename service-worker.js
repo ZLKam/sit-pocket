@@ -1,9 +1,9 @@
-const CACHE_NAME = "sit-pocket-v9";
+const CACHE_NAME = "sit-pocket-v10";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=7",
-  "./app.js?v=5",
+  "./styles.css?v=8",
+  "./app.js?v=6",
   "./calendar.js?v=1",
   "./manifest.webmanifest",
   "./icons/app-icon.svg",

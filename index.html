@@ -14,7 +14,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="./icons/app-icon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="./styles.css?v=7" />
+    <link rel="stylesheet" href="./styles.css?v=8" />
 
     <title>SIT Pocket</title>
   </head>
@@ -113,7 +113,23 @@
             <p class="section-kicker">SIT ACCESS</p>
             <h2 id="sitTitle">SIT essentials</h2>
           </div>
-          <p class="service-count">7 services</p>
+          <div class="section-heading-controls">
+            <p class="service-count">7 services</p>
+            <button
+              class="section-visibility-toggle"
+              id="sitVisibilityToggle"
+              type="button"
+              role="switch"
+              aria-checked="true"
+              aria-controls="launcherGrid"
+              aria-label="Hide SIT essentials"
+            >
+              <span class="section-toggle-track" aria-hidden="true">
+                <span class="section-toggle-thumb"></span>
+              </span>
+              <span class="section-toggle-state">On</span>
+            </button>
+          </div>
         </div>
 
         <div class="launcher-grid" id="launcherGrid">
@@ -288,7 +304,23 @@
             <p class="section-kicker">DIGIPEN ACCESS</p>
             <h2 id="digipenTitle">DigiPen essentials</h2>
           </div>
-          <p class="service-count">5 services</p>
+          <div class="section-heading-controls">
+            <p class="service-count">5 services</p>
+            <button
+              class="section-visibility-toggle"
+              id="digipenVisibilityToggle"
+              type="button"
+              role="switch"
+              aria-checked="true"
+              aria-controls="digipenGrid"
+              aria-label="Hide DigiPen essentials"
+            >
+              <span class="section-toggle-track" aria-hidden="true">
+                <span class="section-toggle-thumb"></span>
+              </span>
+              <span class="section-toggle-state">On</span>
+            </button>
+          </div>
         </div>
 
         <div class="launcher-grid" id="digipenGrid">
@@ -586,7 +618,7 @@
       <p class="noscript-note">JavaScript is off. The website shortcuts still work, but app-launch fallbacks need JavaScript.</p>
     </noscript>
 
-    <script src="./app.js?v=5" defer></script>
+    <script src="./app.js?v=6" defer></script>
     <script type="module" src="./calendar.js?v=1"></script>
   </body>
 </html>

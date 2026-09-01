@@ -33,9 +33,27 @@
   const toast = document.querySelector("#toast");
   const greeting = document.querySelector("#greeting");
   const MEDIHUB_READY_KEY = "sit-pocket:medihub-shortcut-ready";
+  const SECTION_VISIBILITY_KEY = "sit-pocket:section-visibility:v1";
+  const sectionVisibilityControls = [
+    {
+      key: "sit",
+      label: "SIT",
+      section: document.querySelector("#launchers"),
+      grid: document.querySelector("#launcherGrid"),
+      toggle: document.querySelector("#sitVisibilityToggle"),
+    },
+    {
+      key: "digipen",
+      label: "DigiPen",
+      section: document.querySelector("#digipen"),
+      grid: document.querySelector("#digipenGrid"),
+      toggle: document.querySelector("#digipenVisibilityToggle"),
+    },
+  ];
   let activeModal = null;
   let lastFocusedElement = null;
   let toastTimer = null;
+  let sectionVisibility = { sit: true, digipen: true };
 
   const isStandalone =
     window.matchMedia("(display-mode: standalone)").matches ||
@@ -62,6 +80,50 @@
     toast.textContent = message;
     toast.classList.add("is-visible");
     toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2200);
+  };
+
+  const loadSectionVisibility = () => {
+    try {
+      const saved = JSON.parse(window.localStorage.getItem(SECTION_VISIBILITY_KEY) || "null");
+      return {
+        sit: saved?.sit !== false,
+        digipen: saved?.digipen !== false,
+      };
+    } catch {
+      return { sit: true, digipen: true };
+    }
+  };
+
+  const saveSectionVisibility = () => {
+    try {
+      window.localStorage.setItem(SECTION_VISIBILITY_KEY, JSON.stringify(sectionVisibility));
+    } catch {
+      // The switches still work for this visit when private browsing blocks storage.
+    }
+  };
+
+  const applySectionVisibility = ({ key, label, section, grid, toggle }) => {
+    if (!section || !grid || !toggle) return;
+    const isVisible = sectionVisibility[key];
+    grid.hidden = !isVisible;
+    section.classList.toggle("is-collapsed", !isVisible);
+    toggle.setAttribute("aria-checked", String(isVisible));
+    toggle.setAttribute("aria-label", `${isVisible ? "Hide" : "Show"} ${label} essentials`);
+    const stateLabel = toggle.querySelector(".section-toggle-state");
+    if (stateLabel) stateLabel.textContent = isVisible ? "On" : "Off";
+  };
+
+  const initializeSectionVisibility = () => {
+    sectionVisibility = loadSectionVisibility();
+    sectionVisibilityControls.forEach((control) => {
+      applySectionVisibility(control);
+      control.toggle?.addEventListener("click", () => {
+        sectionVisibility[control.key] = !sectionVisibility[control.key];
+        applySectionVisibility(control);
+        saveSectionVisibility();
+        showToast(`${control.label} essentials ${sectionVisibility[control.key] ? "shown" : "hidden"}.`);
+      });
+    });
   };
 
   const openModal = (modal) => {
@@ -218,5 +280,6 @@
     });
   }
 
+  initializeSectionVisibility();
   setGreeting();
 })();

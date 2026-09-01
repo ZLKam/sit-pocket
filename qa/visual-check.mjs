@@ -135,7 +135,44 @@ try {
   await unconnectedPage.goto("http://127.0.0.1:4173/", { waitUntil: "networkidle" });
   await unconnectedPage.locator("#calendarSetupButton").waitFor({ state: "visible" });
   assert.equal(await unconnectedPage.locator("#calendarSubscribeButton").isHidden(), true);
+  assert.equal(await unconnectedPage.locator("#sitVisibilityToggle").getAttribute("aria-checked"), "true");
+  assert.equal(await unconnectedPage.locator("#digipenVisibilityToggle").getAttribute("aria-checked"), "true");
+  assert.equal(await unconnectedPage.locator("#launcherGrid").isVisible(), true);
+  assert.equal(await unconnectedPage.locator("#digipenGrid").isVisible(), true);
   assert.equal(await unconnectedPage.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+
+  await unconnectedPage.locator("#digipenVisibilityToggle").click();
+  await unconnectedPage.locator("#digipenGrid").waitFor({ state: "hidden" });
+  assert.equal(await unconnectedPage.locator("#digipenVisibilityToggle").getAttribute("aria-checked"), "false");
+  assert.equal(await unconnectedPage.locator("#digipenVisibilityToggle .section-toggle-state").textContent(), "Off");
+  assert.equal(await unconnectedPage.locator("#launcherGrid").isVisible(), true);
+  assert.equal(
+    await unconnectedPage.evaluate(() =>
+      JSON.parse(localStorage.getItem("sit-pocket:section-visibility:v1") || "null")?.digipen,
+    ),
+    false,
+  );
+  await unconnectedPage.screenshot({ path: path.join(outputDirectory, "digipen-hidden-390.png"), fullPage: true });
+
+  await unconnectedPage.reload({ waitUntil: "networkidle" });
+  assert.equal(await unconnectedPage.locator("#digipenGrid").isHidden(), true);
+  assert.equal(await unconnectedPage.locator("#digipenVisibilityToggle").getAttribute("aria-label"), "Show DigiPen essentials");
+  await unconnectedPage.locator("#digipenVisibilityToggle").click();
+  await unconnectedPage.locator("#digipenGrid").waitFor({ state: "visible" });
+
+  await unconnectedPage.locator("#sitVisibilityToggle").click();
+  await unconnectedPage.locator("#launcherGrid").waitFor({ state: "hidden" });
+  assert.equal(await unconnectedPage.locator("#digipenGrid").isVisible(), true);
+  await unconnectedPage.locator("#sitVisibilityToggle").click();
+  await unconnectedPage.locator("#launcherGrid").waitFor({ state: "visible" });
+  assert.equal(
+    await unconnectedPage.locator(".skip-link").evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      return rect.width <= 1 && rect.height <= 1 && style.clipPath !== "none";
+    }),
+    true,
+  );
   await unconnectedPage.screenshot({ path: path.join(outputDirectory, "unconnected-390.png"), fullPage: true });
   await unconnectedContext.close();
 
@@ -184,6 +221,18 @@ try {
     await responsivePage.locator(".lesson-item").first().waitFor({ state: "visible" });
     assert.equal(await responsivePage.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
     await responsivePage.screenshot({ path: path.join(outputDirectory, viewport.name), fullPage: false });
+    if (viewport.width === 320) {
+      await responsivePage.locator("#sitVisibilityToggle").scrollIntoViewIfNeeded();
+      assert.equal(await responsivePage.locator("#sitVisibilityToggle").isVisible(), true);
+      assert.equal(
+        await responsivePage.locator("#launchers .section-heading").evaluate((element) => {
+          const rect = element.getBoundingClientRect();
+          return rect.left >= 0 && rect.right <= window.innerWidth;
+        }),
+        true,
+      );
+      await responsivePage.screenshot({ path: path.join(outputDirectory, "toggles-320.png"), fullPage: false });
+    }
     await responsiveContext.close();
   }
 

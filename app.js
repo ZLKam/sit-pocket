@@ -18,6 +18,16 @@
   const medihubClosers = [
     document.querySelector("#closeMedihubButton"),
   ].filter(Boolean);
+  const calendarModal = document.querySelector("#calendarModal");
+  const calendarTriggers = [
+    document.querySelector("#calendarSetupButton"),
+    document.querySelector("#calendarSettingsButton"),
+    document.querySelector("#calendarFooterButton"),
+  ].filter(Boolean);
+  const calendarClosers = [
+    document.querySelector("#closeCalendarButton"),
+    document.querySelector("#doneCalendarButton"),
+  ].filter(Boolean);
   const createMedihubShortcut = document.querySelector("#createMedihubShortcut");
   const runMedihubShortcut = document.querySelector("#runMedihubShortcut");
   const toast = document.querySelector("#toast");
@@ -74,6 +84,7 @@
 
   const openInstallModal = () => openModal(installModal);
   const openMedihubModal = () => openModal(medihubModal);
+  const openCalendarModal = () => openModal(calendarModal);
 
   const keepFocusInModal = (event) => {
     if (event.key !== "Tab" || !activeModal || activeModal.hidden) return;
@@ -81,7 +92,7 @@
       ...activeModal.querySelectorAll(
         'button:not([disabled]), a[href], input:not([disabled]), [tabindex]:not([tabindex="-1"])',
       ),
-    ];
+    ].filter((element) => !element.closest("[hidden]") && element.offsetParent !== null);
     if (!focusable.length) return;
 
     const first = focusable[0];
@@ -158,6 +169,8 @@
   installClosers.forEach((closer) => closer.addEventListener("click", () => closeModal(installModal)));
   medihubTriggers.forEach((trigger) => trigger.addEventListener("click", openMedihubModal));
   medihubClosers.forEach((closer) => closer.addEventListener("click", () => closeModal(medihubModal)));
+  calendarTriggers.forEach((trigger) => trigger.addEventListener("click", openCalendarModal));
+  calendarClosers.forEach((closer) => closer.addEventListener("click", () => closeModal(calendarModal)));
 
   installModal?.addEventListener("click", (event) => {
     if (event.target === installModal) closeModal(installModal);
@@ -166,6 +179,12 @@
   medihubModal?.addEventListener("click", (event) => {
     if (event.target === medihubModal) closeModal(medihubModal);
   });
+
+  calendarModal?.addEventListener("click", (event) => {
+    if (event.target === calendarModal) closeModal(calendarModal);
+  });
+
+  document.addEventListener("sit-pocket:open-calendar", openCalendarModal);
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && activeModal) closeModal(activeModal);

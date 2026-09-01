@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0b2735" />
     <meta name="color-scheme" content="light" />
-    <meta name="description" content="A fast, private launcher for essential SIT and DigiPen student websites and iPhone apps." />
+    <meta name="description" content="A fast, private launcher for SIT and DigiPen services, with upcoming lessons and Apple Calendar subscription." />
 
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -14,7 +14,7 @@
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" type="image/svg+xml" href="./icons/app-icon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
-    <link rel="stylesheet" href="./styles.css?v=6" />
+    <link rel="stylesheet" href="./styles.css?v=7" />
 
     <title>SIT Pocket</title>
   </head>
@@ -59,6 +59,54 @@
     </header>
 
     <main>
+      <section class="schedule-section" id="upcoming" aria-labelledby="upcomingTitle">
+        <div class="section-heading schedule-heading">
+          <div>
+            <p class="section-kicker">MY TIMETABLE</p>
+            <h2 id="upcomingTitle">Up next</h2>
+          </div>
+          <button class="schedule-manage-button" id="calendarSettingsButton" type="button" aria-haspopup="dialog" aria-controls="calendarModal" hidden>
+            Manage
+          </button>
+        </div>
+
+        <div class="schedule-panel" id="schedulePanel" aria-live="polite" aria-busy="false">
+          <div class="schedule-status-row">
+            <p class="schedule-status" id="calendarStatus">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span>Timetable not connected</span>
+            </p>
+          </div>
+
+          <div class="schedule-content" id="scheduleContent">
+            <div class="schedule-empty">
+              <span class="schedule-empty-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 32">
+                  <rect x="5" y="7" width="22" height="20" rx="4" />
+                  <path d="M11 4v6m10-6v6M5 13h22M10 18h4m-4 4h9" />
+                </svg>
+              </span>
+              <div>
+                <strong>Bring your timetable here</strong>
+                <p>Connect once to see your next lessons and subscribe in Apple Calendar.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="schedule-actions" id="scheduleActions">
+            <button class="schedule-primary-button" id="calendarSetupButton" type="button" aria-haspopup="dialog" aria-controls="calendarModal">
+              Connect timetable
+            </button>
+            <button class="schedule-secondary-button" id="calendarRefreshButton" type="button" hidden>
+              Refresh
+            </button>
+            <a class="schedule-primary-button calendar-subscribe-button" id="calendarSubscribeButton" href="#" hidden>
+              Subscribe in Apple Calendar
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section class="launcher-section" id="launchers" aria-labelledby="sitTitle">
         <div class="section-heading">
           <div>
@@ -368,7 +416,7 @@
         </svg>
         <div>
           <strong>Private by design</strong>
-          <p>No sign-ins or personal data are stored here. Each shortcut opens the official service.</p>
+          <p>Your private calendar read key and latest timetable are stored only on this device. SIT Pocket never stores school passwords or your calendar write key.</p>
         </div>
       </section>
     </main>
@@ -376,6 +424,7 @@
     <footer>
       <p>Made for everyday campus life.</p>
       <div class="footer-actions">
+        <button type="button" id="calendarFooterButton" aria-haspopup="dialog" aria-controls="calendarModal">Timetable setup</button>
         <button type="button" id="medihubHelpButton">MediHub setup</button>
         <button type="button" id="footerInstallButton">How to add this to iPhone</button>
       </div>
@@ -458,10 +507,86 @@
       </section>
     </div>
 
+    <div class="modal-backdrop" id="calendarModal" hidden>
+      <section class="install-sheet calendar-sheet" role="dialog" aria-modal="true" aria-labelledby="calendarSetupTitle" tabindex="-1">
+        <div class="sheet-handle" aria-hidden="true"></div>
+        <button class="close-button" id="closeCalendarButton" type="button" aria-label="Close timetable setup">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+        </button>
+
+        <div class="calendar-modal-icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32">
+            <rect x="5" y="7" width="22" height="20" rx="4" />
+            <path d="M11 4v6m10-6v6M5 13h22M10 18h4m-4 4h9" />
+          </svg>
+        </div>
+        <p class="section-kicker">PRIVATE CALENDAR</p>
+        <h2 id="calendarSetupTitle">Connect your timetable</h2>
+        <p class="install-intro" id="calendarSetupIntro">Sync from in4SIT on your computer, then open the private iPhone setup link created by the extension.</p>
+
+        <div id="calendarConnectView">
+          <ol class="install-steps compact-steps">
+            <li>
+              <span class="step-number">1</span>
+              <span>Open your timetable in <strong>in4SIT</strong> on Chrome and sync it with the SIT Pocket extension.</span>
+            </li>
+            <li>
+              <span class="step-number">2</span>
+              <span>Select <strong>Copy iPhone setup link</strong> in the extension.</span>
+            </li>
+            <li>
+              <span class="step-number">3</span>
+              <span>Send the link to this iPhone and open it. SIT Pocket connects automatically.</span>
+            </li>
+          </ol>
+
+          <details class="manual-connect">
+            <summary>Enter connection details manually</summary>
+            <form class="calendar-connect-form" id="calendarConnectionForm">
+              <label>
+                Sync service address
+                <input id="calendarServiceUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://your-worker.workers.dev" required />
+              </label>
+              <label>
+                Calendar ID
+                <input id="calendarId" type="text" autocomplete="off" required />
+              </label>
+              <label>
+                Private read key
+                <input id="calendarReadToken" type="password" autocomplete="off" required />
+              </label>
+              <button class="done-button" type="submit">Connect timetable</button>
+            </form>
+          </details>
+        </div>
+
+        <div class="calendar-connected-view" id="calendarConnectedView" hidden>
+          <div class="calendar-connected-summary">
+            <span class="connected-check" aria-hidden="true">✓</span>
+            <div>
+              <strong>Connected on this iPhone</strong>
+              <p id="calendarConnectionLabel">Your next lessons will appear on the home page.</p>
+            </div>
+          </div>
+          <div class="shortcut-actions calendar-modal-actions">
+            <a class="done-button calendar-modal-subscribe" id="calendarModalSubscribeButton" href="#">Subscribe in Apple Calendar</a>
+            <button class="secondary-button" id="calendarModalRefreshButton" type="button">Refresh lessons</button>
+            <button class="danger-text-button" id="calendarDisconnectButton" type="button">Disconnect this device</button>
+          </div>
+          <p class="shortcut-note">When Calendar opens, choose <strong>iCloud</strong> as the account and confirm. The subscription is read-only; after an in4SIT sync, Apple refreshes it on its own schedule.</p>
+        </div>
+
+        <p class="calendar-modal-status" id="calendarModalStatus" role="status" aria-live="polite"></p>
+        <p class="calendar-privacy-warning"><strong>Keep the setup link private.</strong> Anyone with its read key can view this timetable. Your calendar write key and school password are never stored here.</p>
+        <button class="secondary-button calendar-done-button" id="doneCalendarButton" type="button">Done</button>
+      </section>
+    </div>
+
     <noscript>
       <p class="noscript-note">JavaScript is off. The website shortcuts still work, but app-launch fallbacks need JavaScript.</p>
     </noscript>
 
-    <script src="./app.js?v=4" defer></script>
+    <script src="./app.js?v=5" defer></script>
+    <script type="module" src="./calendar.js?v=1"></script>
   </body>
 </html>

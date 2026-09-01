@@ -1,15 +1,17 @@
-const CACHE_NAME = "sit-pocket-v8";
+const CACHE_NAME = "sit-pocket-v9";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=6",
-  "./app.js?v=4",
+  "./styles.css?v=7",
+  "./app.js?v=5",
+  "./calendar.js?v=1",
   "./manifest.webmanifest",
   "./icons/app-icon.svg",
   "./icons/apple-touch-icon.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
 ];
+const APP_SHELL_URLS = new Set(APP_SHELL.map((path) => new URL(path, self.location.href).href));
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
@@ -43,6 +45,8 @@ self.addEventListener("fetch", (event) => {
     );
     return;
   }
+
+  if (!APP_SHELL_URLS.has(url.href)) return;
 
   event.respondWith(
     fetch(request)

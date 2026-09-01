@@ -1,6 +1,20 @@
-# SIT Pocket
+# SIT Pocket web app
 
-A mobile-first launcher for seven SIT services and five DigiPen services used on an iPhone. It is a static website with no analytics, no account storage, and no build step, so it is a good fit for GitHub Pages.
+The iPhone home-screen app for SIT and DigiPen shortcuts. It also shows the next three lessons from a private read-only timetable feed and can hand that feed to Apple Calendar as a subscribed calendar.
+
+The site is intentionally static and remains suitable for GitHub Pages. School passwords and the timetable write key never enter this website.
+
+## Timetable experience
+
+- The Chrome extension creates a private iPhone setup link after it syncs in4SIT.
+- Opening that link imports only the sync-service address, calendar ID, and read key.
+- The URL fragment is removed immediately after import, then the connection is saved in this device's local storage.
+- The home page fetches the private JSON feed and shows the next three active or future lessons.
+- The last successful response is cached locally so lessons remain visible when a refresh is unavailable.
+- **Subscribe in Apple Calendar** opens the matching `webcal://` feed. Choose **iCloud** as the account in Apple's confirmation screen so it appears across devices. The subscription is read-only; the feed changes immediately after an extension sync, while Apple controls when Calendar refreshes it.
+- Disconnecting removes the connection and cached timetable from the device.
+
+Treat both the iPhone setup link and Apple Calendar subscription link as private: anyone with the embedded read key can view the timetable.
 
 ## Included shortcuts
 
@@ -20,46 +34,42 @@ A mobile-first launcher for seven SIT services and five DigiPen services used on
 
 | Shortcut | Destination |
 | --- | --- |
-| DRAMA | `https://drama.digipen.edu/` — DigiPen Resource &amp; Account Management Application |
+| DRAMA | `https://drama.digipen.edu/` — DigiPen Resource & Account Management Application |
 | Moodle | `https://distance3.sg.digipen.edu/` — choose **2026-Fall** |
 | WebMail | `https://webmail.digipen.edu/roundcube/` |
 | MS Teams | Opens the Microsoft Teams iPhone app; falls back to its Singapore App Store page |
 | Attendance | `https://student-attendance.sg.digipen.edu/login` |
 
-The original destinations were checked on 18 August 2026. The Microsoft Teams app link and App Store fallback were checked on 28 August 2026.
+## Local check
+
+The site has no build step. Serve this directory over HTTP and open it in a browser. Run the calendar logic tests with:
+
+```text
+npm test
+```
+
+The sync service permits the production GitHub Pages origin and the documented local preview origins. A local preview must use an allowed origin before it can fetch a live private feed.
 
 ## Publish with GitHub Pages
 
-1. Sign in to GitHub and create a new **public** repository, for example `sit-pocket`.
-2. Choose **Add file → Upload files**.
-3. Upload everything inside this `sit-pocket` folder, keeping the `icons` folder intact, then commit the upload.
-4. Open the repository's **Settings → Pages**.
-5. Under **Build and deployment**, choose **Deploy from a branch**.
-6. Select the `main` branch and `/ (root)`, then select **Save**.
-7. After GitHub finishes publishing, open the Pages address it shows. It will usually look like `https://YOUR-USERNAME.github.io/sit-pocket/`.
+This repository is already configured as a static Pages site. Commit and push the files on `main`; GitHub Pages republishes automatically. When changing cached app-shell files, increase `CACHE_NAME` in `service-worker.js` so existing Home Screen installations update promptly.
 
 ## Add it to an iPhone
 
-1. Open the published address in **Safari**.
+1. Open the published address in Safari.
 2. Tap Safari's **Share** button.
-3. Scroll down and choose **Add to Home Screen**.
+3. Choose **Add to Home Screen**.
 4. Tap **Add**.
 
-It then launches in its own app-style window. The launcher shell remains available offline, although each school portal still needs an internet connection.
+The shell and last successfully fetched timetable remain available offline. School portals still require an internet connection.
 
-## App-link note
+## MediHub shortcut
 
-Outlook publishes the `ms-outlook://` iPhone link used here. Howden MediHub does not register a working public launch scheme, so the launcher uses Apple's supported Shortcuts URL instead.
+Howden MediHub does not expose a working public app-launch address, so SIT Pocket uses an Apple Shortcut:
 
-Create the MediHub shortcut once on the iPhone:
+1. In Shortcuts, create a shortcut with the **Open App** action.
+2. Select **Howden MediHub**.
+3. Name the shortcut exactly **Open MediHub**.
+4. Return to SIT Pocket and select **I've created it — Open MediHub**.
 
-1. In Apple Shortcuts, create a new shortcut.
-2. Add the **Open App** action and choose **Howden MediHub**.
-3. Rename the shortcut exactly **Open MediHub** and save it.
-4. Return to SIT Pocket and select **I've created it — Open MediHub** in the setup sheet.
-
-The first tap on the **MediHub** card opens this setup sheet instead of the App Store. After setup, future taps run `shortcuts://run-shortcut?name=Open%20MediHub`. The **MediHub setup** link in the footer reopens the instructions, and the setup sheet keeps the verified App Store destination available separately.
-
-## Updating a shortcut
-
-All labels, descriptions, and destinations are in `index.html`. After changing one, commit the update to GitHub; GitHub Pages will republish automatically. If you change cached site files, also increase the `CACHE_NAME` version in `service-worker.js` so installed copies refresh promptly.
+Future taps run `shortcuts://run-shortcut?name=Open%20MediHub`. The footer setup link keeps the instructions and App Store fallback available.

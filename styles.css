@@ -20,6 +20,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   min-width: 320px;
   background: var(--navy);
@@ -260,6 +264,275 @@ a {
 
 main {
   background: var(--paper);
+}
+
+.schedule-section {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: 36px 20px 6px;
+}
+
+.schedule-heading {
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.schedule-heading .section-kicker {
+  color: #087c93;
+}
+
+.schedule-manage-button {
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid rgba(11, 39, 53, 0.12);
+  border-radius: 999px;
+  color: #31515f;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.schedule-panel {
+  position: relative;
+  overflow: hidden;
+  padding: 16px;
+  border: 1px solid rgba(18, 36, 45, 0.09);
+  border-radius: 25px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(8, 124, 147, 0.09), transparent 32%),
+    #fff;
+  box-shadow: var(--shadow);
+}
+
+.schedule-status-row {
+  display: flex;
+  min-height: 24px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+.schedule-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: #76848b;
+  font-size: 10px;
+  font-weight: 760;
+  letter-spacing: 0.015em;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: #9ba6aa;
+  box-shadow: 0 0 0 4px rgba(155, 166, 170, 0.12);
+}
+
+.schedule-status.is-connected .status-dot {
+  background: #198467;
+  box-shadow: 0 0 0 4px rgba(25, 132, 103, 0.12);
+}
+
+.schedule-status.is-cached .status-dot,
+.schedule-status.is-loading .status-dot {
+  background: #d88526;
+  box-shadow: 0 0 0 4px rgba(216, 133, 38, 0.12);
+}
+
+.schedule-status.is-error .status-dot {
+  background: #c33f42;
+  box-shadow: 0 0 0 4px rgba(195, 63, 66, 0.12);
+}
+
+.schedule-empty {
+  display: flex;
+  min-height: 108px;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 3px 13px;
+}
+
+.schedule-empty-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 17px;
+  color: #087c93;
+  background: #e6f6f8;
+  font-size: 21px;
+  font-weight: 900;
+}
+
+.schedule-empty-error .schedule-empty-icon {
+  color: #c33f42;
+  background: #fff0f0;
+}
+
+.schedule-empty-icon svg {
+  width: 28px;
+  height: 28px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.schedule-empty strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 830;
+  letter-spacing: -0.025em;
+}
+
+.schedule-empty p {
+  max-width: 460px;
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.lesson-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lesson-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16px minmax(0, 1fr);
+  gap: 8px;
+  min-height: 77px;
+  padding: 12px 4px 12px 0;
+}
+
+.lesson-item + .lesson-item {
+  border-top: 1px solid rgba(18, 36, 45, 0.075);
+}
+
+.lesson-marker {
+  position: relative;
+  display: block;
+  width: 9px;
+  height: 9px;
+  margin-top: 5px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #087c93;
+  box-shadow: 0 0 0 2px rgba(8, 124, 147, 0.18);
+}
+
+.lesson-item.is-now .lesson-marker {
+  background: var(--orange);
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.22);
+}
+
+.lesson-copy {
+  min-width: 0;
+}
+
+.lesson-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.lesson-day {
+  color: #087c93;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lesson-item.is-now .lesson-day {
+  color: #d9572b;
+}
+
+.lesson-time {
+  flex: 0 0 auto;
+  color: #687980;
+  font-size: 10px;
+  font-weight: 720;
+}
+
+.lesson-title {
+  display: block;
+  overflow: hidden;
+  color: #162b34;
+  font-size: 14px;
+  font-weight: 820;
+  letter-spacing: -0.02em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lesson-location {
+  display: block;
+  overflow: hidden;
+  margin-top: 4px;
+  color: #75838a;
+  font-size: 10px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lesson-location::before {
+  content: "⌖";
+  margin-right: 5px;
+  color: #8c989d;
+}
+
+.schedule-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.schedule-primary-button,
+.schedule-secondary-button {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 820;
+  cursor: pointer;
+}
+
+.schedule-primary-button {
+  flex: 1 1 210px;
+  padding: 0 17px;
+  border: 0;
+  color: #fff;
+  background: var(--navy);
+}
+
+.schedule-secondary-button {
+  flex: 0 0 auto;
+  padding: 0 15px;
+  border: 1px solid rgba(11, 39, 53, 0.14);
+  color: var(--navy);
+  background: #f8f8f5;
+}
+
+.schedule-secondary-button:disabled {
+  opacity: 0.55;
+  cursor: wait;
 }
 
 .launcher-section {
@@ -804,6 +1077,166 @@ footer button {
   text-align: center;
 }
 
+.calendar-modal-icon {
+  display: grid;
+  width: 66px;
+  height: 66px;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 19px;
+  color: #087c93;
+  background: #e6f6f8;
+  box-shadow: 0 9px 22px rgba(8, 124, 147, 0.14);
+}
+
+.calendar-modal-icon svg {
+  width: 36px;
+  height: 36px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.compact-steps {
+  margin-bottom: 13px;
+}
+
+.manual-connect {
+  margin: 0 0 15px;
+  padding: 0 13px;
+  border: 1px solid rgba(18, 36, 45, 0.09);
+  border-radius: 15px;
+  background: #fff;
+}
+
+.manual-connect summary {
+  padding: 14px 0;
+  color: #405761;
+  font-size: 12px;
+  font-weight: 780;
+  cursor: pointer;
+}
+
+.calendar-connect-form {
+  display: grid;
+  gap: 11px;
+  padding: 2px 0 14px;
+}
+
+.calendar-connect-form label {
+  display: grid;
+  gap: 5px;
+  color: #50636b;
+  font-size: 10px;
+  font-weight: 760;
+}
+
+.calendar-connect-form input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(18, 36, 45, 0.15);
+  border-radius: 12px;
+  color: var(--ink);
+  background: #fbfbf9;
+  font-size: 13px;
+  font-weight: 560;
+  outline: none;
+}
+
+.calendar-connect-form input:focus {
+  border-color: rgba(8, 124, 147, 0.58);
+  box-shadow: 0 0 0 3px rgba(8, 124, 147, 0.1);
+}
+
+.calendar-connected-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 19px 0 15px;
+  padding: 13px;
+  border: 1px solid rgba(25, 132, 103, 0.13);
+  border-radius: 16px;
+  background: #eef9f5;
+}
+
+.connected-check {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #198467;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.calendar-connected-summary strong {
+  display: block;
+  font-size: 13px;
+}
+
+.calendar-connected-summary p {
+  margin: 3px 0 0;
+  color: #587068;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.calendar-modal-subscribe {
+  display: grid;
+  place-items: center;
+}
+
+.danger-text-button {
+  min-height: 39px;
+  border: 0;
+  color: #b53b3f;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 760;
+  text-decoration: underline;
+  text-decoration-color: rgba(181, 59, 63, 0.28);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.calendar-modal-status {
+  min-height: 16px;
+  margin: 12px 3px 0;
+  color: #66777e;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.calendar-modal-status.is-success {
+  color: #197a62;
+}
+
+.calendar-modal-status.is-error {
+  color: #b53b3f;
+}
+
+.calendar-privacy-warning {
+  margin: 12px 0 0;
+  padding: 11px 12px;
+  border-radius: 13px;
+  color: #6c6759;
+  background: #f5f1e7;
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.calendar-done-button {
+  margin-top: 10px;
+}
+
 .noscript-note {
   position: fixed;
   z-index: 110;
@@ -823,9 +1256,16 @@ body.modal-open {
   overflow: hidden;
 }
 
+body.is-standalone .skip-link,
 body.is-standalone .install-button,
 body.is-standalone #footerInstallButton {
   display: none;
+}
+
+@media (display-mode: standalone) {
+  .skip-link {
+    display: none;
+  }
 }
 
 @keyframes sheet-in {
@@ -857,6 +1297,11 @@ body.is-standalone #footerInstallButton {
 
   .launcher-section {
     padding-top: 48px;
+    padding-inline: 28px;
+  }
+
+  .schedule-section {
+    padding-top: 42px;
     padding-inline: 28px;
   }
 
@@ -931,6 +1376,20 @@ body.is-standalone #footerInstallButton {
 
   .launcher-section {
     padding-inline: 14px;
+  }
+
+  .schedule-section {
+    padding-inline: 14px;
+  }
+
+  .schedule-panel {
+    padding: 14px;
+  }
+
+  .lesson-meta {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .launcher-grid {

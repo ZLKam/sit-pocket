@@ -1,10 +1,10 @@
-const CACHE_NAME = "sit-pocket-v10";
+const CACHE_NAME = "sit-pocket-v11";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./styles.css?v=8",
-  "./app.js?v=6",
-  "./calendar.js?v=1",
+  "./styles.css?v=9",
+  "./app.js?v=7",
+  "./calendar.js?v=2",
   "./manifest.webmanifest",
   "./icons/app-icon.svg",
   "./icons/apple-touch-icon.png",
@@ -58,5 +58,53 @@ self.addEventListener("fetch", (event) => {
         return response;
       })
       .catch(() => caches.match(request)),
+  );
+});
+
+self.addEventListener("push", (event) => {
+  let message = {};
+  try {
+    message = event.data?.json() || {};
+  } catch {
+    message = { body: event.data?.text() || "A class is starting. Tap to check in." };
+  }
+
+  const title = String(message.title || "Class starting — check in").slice(0, 120);
+  const options = {
+    body: String(message.body || "Tap to open DigiPen Attendance.").slice(0, 240),
+    icon: message.icon || "./icons/icon-192.png",
+    badge: message.badge || "./icons/icon-192.png",
+    tag: String(message.tag || "sit-pocket-attendance").slice(0, 180),
+    data: {
+      action: "attendance",
+      eventId: String(message.data?.eventId || "").slice(0, 128),
+    },
+  };
+
+  const work = [self.registration.showNotification(title, options)];
+  if (self.navigator?.setAppBadge) work.push(self.navigator.setAppBadge(1).catch(() => {}));
+  event.waitUntil(Promise.all(work));
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const targetUrl = new URL("./?action=attendance", self.registration.scope).href;
+
+  event.waitUntil(
+    self.clients
+      .matchAll({ type: "window", includeUncontrolled: true })
+      .then(async (clientList) => {
+        const appClient = clientList.find((client) => client.url.startsWith(self.registration.scope));
+        if (appClient) {
+          try {
+            if ("navigate" in appClient) await appClient.navigate(targetUrl);
+            if ("focus" in appClient) return appClient.focus();
+          } catch {
+            // Fall through to opening a fresh app window if this client cannot navigate.
+          }
+        }
+        return self.clients.openWindow(targetUrl);
+      })
+      .then(() => (self.navigator?.clearAppBadge ? self.navigator.clearAppBadge().catch(() => {}) : undefined)),
   );
 });

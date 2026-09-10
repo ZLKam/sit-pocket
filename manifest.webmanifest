@@ -1,7 +1,7 @@
 {
   "name": "SIT Pocket — Student Launcher",
   "short_name": "SIT Pocket",
-  "description": "A private SIT and DigiPen launcher with upcoming lessons and Apple Calendar subscription.",
+  "description": "A private SIT and DigiPen launcher with editable lessons, attendance notifications, and Apple Calendar subscription.",
   "id": "./",
   "start_url": "./",
   "scope": "./",

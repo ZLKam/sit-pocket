@@ -34,6 +34,7 @@
   const greeting = document.querySelector("#greeting");
   const MEDIHUB_READY_KEY = "sit-pocket:medihub-shortcut-ready";
   const SECTION_VISIBILITY_KEY = "sit-pocket:section-visibility:v1";
+  const ATTENDANCE_URL = "https://student-attendance.sg.digipen.edu/login";
   const sectionVisibilityControls = [
     {
       key: "sit",
@@ -66,6 +67,14 @@
   if (isStandalone) {
     document.body.classList.add("is-standalone");
   }
+
+  const launchAttendanceFromNotification = () => {
+    const url = new URL(window.location.href);
+    if (url.searchParams.get("action") !== "attendance") return;
+    url.searchParams.delete("action");
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+    window.location.replace(ATTENDANCE_URL);
+  };
 
   const setGreeting = () => {
     if (!greeting) return;
@@ -274,12 +283,16 @@
 
   if ("serviceWorker" in navigator && window.location.protocol !== "file:") {
     window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./service-worker.js").catch(() => {
-        // The launcher remains fully usable online when service workers are unavailable.
-      });
+      navigator.serviceWorker
+        .register("./service-worker.js", { updateViaCache: "none" })
+        .then((registration) => registration.update())
+        .catch(() => {
+          // The launcher remains fully usable online when service workers are unavailable.
+        });
     });
   }
 
+  launchAttendanceFromNotification();
   initializeSectionVisibility();
   setGreeting();
 })();

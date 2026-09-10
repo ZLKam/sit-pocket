@@ -417,7 +417,7 @@ main {
 .lesson-item {
   position: relative;
   display: grid;
-  grid-template-columns: 16px minmax(0, 1fr);
+  grid-template-columns: 16px minmax(0, 1fr) auto;
   gap: 8px;
   min-height: 77px;
   padding: 12px 4px 12px 0;
@@ -547,6 +547,33 @@ main {
   width: min(100%, 760px);
   margin: 0 auto;
   padding: 42px 20px 12px;
+}
+
+.lesson-edited {
+  display: inline-flex;
+  margin-top: 7px;
+  padding: 3px 7px;
+  border-radius: 999px;
+  color: #75551e;
+  background: #fff3d7;
+  font-size: 8px;
+  font-weight: 820;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.lesson-edit-button {
+  align-self: center;
+  min-width: 49px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 1px solid rgba(8, 124, 147, 0.16);
+  border-radius: 11px;
+  color: #087c93;
+  background: #edf8fa;
+  font-size: 10px;
+  font-weight: 820;
+  cursor: pointer;
 }
 
 .launcher-section.is-collapsed {
@@ -1227,6 +1254,12 @@ footer button {
   font-weight: 760;
 }
 
+.optional-label {
+  color: #849198;
+  font-size: 8px;
+  font-weight: 650;
+}
+
 .calendar-connect-form input {
   width: 100%;
   min-height: 44px;
@@ -1243,6 +1276,146 @@ footer button {
 .calendar-connect-form input:focus {
   border-color: rgba(8, 124, 147, 0.58);
   box-shadow: 0 0 0 3px rgba(8, 124, 147, 0.1);
+}
+
+.calendar-capability-note {
+  margin: 12px 0 0;
+  padding: 11px 12px;
+  border-radius: 13px;
+  color: #75551e;
+  background: #fff3d7;
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.calendar-notification-button[aria-pressed="true"] {
+  border-color: rgba(25, 132, 103, 0.25);
+  color: #197a62;
+  background: #eef9f5;
+}
+
+.calendar-notification-button:disabled {
+  opacity: 0.62;
+  cursor: not-allowed;
+}
+
+.calendar-notification-help {
+  margin: -2px 5px 2px;
+  color: #718087;
+  font-size: 9px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.calendar-notification-help.is-enabled {
+  color: #197a62;
+}
+
+.calendar-editor-view {
+  margin-top: 17px;
+}
+
+.calendar-back-button {
+  min-height: 38px;
+  padding: 0;
+  border: 0;
+  color: #087c93;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.calendar-editor-intro {
+  margin: 3px 0 14px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.calendar-event-form {
+  display: grid;
+  gap: 11px;
+}
+
+.calendar-event-form > label,
+.calendar-datetime-grid label {
+  display: grid;
+  gap: 5px;
+  color: #50636b;
+  font-size: 10px;
+  font-weight: 760;
+}
+
+.calendar-event-form input:not([type="checkbox"]),
+.calendar-event-form select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(18, 36, 45, 0.15);
+  border-radius: 12px;
+  color: var(--ink);
+  background: #fff;
+  font: inherit;
+  font-size: 12px;
+  outline: none;
+}
+
+.calendar-event-form select {
+  padding-right: 30px;
+}
+
+.calendar-event-form input:focus,
+.calendar-event-form select:focus {
+  border-color: rgba(8, 124, 147, 0.58);
+  box-shadow: 0 0 0 3px rgba(8, 124, 147, 0.1);
+}
+
+.calendar-datetime-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 9px;
+}
+
+.calendar-cancel-row {
+  display: flex !important;
+  min-height: 44px;
+  grid-template-columns: none !important;
+  align-items: center;
+  gap: 9px !important;
+  padding: 0 11px;
+  border: 1px solid rgba(181, 59, 63, 0.13);
+  border-radius: 12px;
+  color: #8f3639 !important;
+  background: #fff6f6;
+}
+
+.calendar-cancel-row input {
+  width: 20px;
+  height: 20px;
+  accent-color: #b53b3f;
+}
+
+.calendar-editor-status {
+  min-height: 28px;
+  margin: 11px 3px 0;
+  color: #66777e;
+  font-size: 9px;
+  font-weight: 680;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.calendar-editor-status.is-success {
+  color: #197a62;
+}
+
+.calendar-editor-status.is-error {
+  color: #b53b3f;
+}
+
+.calendar-editor-status.is-changed {
+  color: #75551e;
 }
 
 .calendar-connected-summary {
@@ -1451,6 +1624,10 @@ body.is-standalone #footerInstallButton {
   .modal-backdrop {
     align-items: center;
   }
+
+  .calendar-datetime-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 359px) {
@@ -1484,6 +1661,15 @@ body.is-standalone #footerInstallButton {
     align-items: flex-start;
     flex-direction: column;
     gap: 2px;
+  }
+
+  .lesson-item {
+    grid-template-columns: 14px minmax(0, 1fr) auto;
+  }
+
+  .lesson-edit-button {
+    min-width: 43px;
+    padding-inline: 7px;
   }
 
   .launcher-grid {

@@ -92,10 +92,34 @@ const feed = {
   ],
 };
 
-const mockServer = createServer((request, response) => {
+const mockServer = createServer(async (request, response) => {
   const url = new URL(request.url, "http://127.0.0.1:4174");
   response.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:4173");
+  response.setHeader("Access-Control-Allow-Methods", "GET, PATCH, POST, DELETE, OPTIONS");
+  response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
   response.setHeader("Cache-Control", "no-store");
+  if (request.method === "OPTIONS") {
+    response.writeHead(204);
+    response.end();
+    return;
+  }
+  const eventMatch = url.pathname.match(/^\/v1\/timetables\/sit-private-01\/events\/([^/]+)$/);
+  if (request.method === "PATCH" && eventMatch && request.headers.authorization === "Bearer edit_token_123456") {
+    const chunks = [];
+    for await (const chunk of request) chunks.push(chunk);
+    const update = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+    const event = feed.events.find((item) => item.id === decodeURIComponent(eventMatch[1]));
+    Object.assign(event, update, { manuallyEdited: true });
+    feed.updatedAt = new Date().toISOString();
+    response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+    response.end(JSON.stringify({ ok: true, event }));
+    return;
+  }
+  if (url.pathname.endsWith("/push-config") && url.searchParams.get("token") === "read_token_123456") {
+    response.writeHead(200, { "Content-Type": "application/json; charset=utf-8" });
+    response.end(JSON.stringify({ publicKey: Buffer.alloc(65, 1).toString("base64url") }));
+    return;
+  }
   if (url.pathname.endsWith(".json") && url.searchParams.get("token") === "read_token_123456") {
     response.writeHead(mockOnline ? 200 : 503, { "Content-Type": "application/json; charset=utf-8" });
     response.end(JSON.stringify(mockOnline ? feed : { error: "Offline test" }));
@@ -114,10 +138,11 @@ const listen = (server, port) =>
 const close = (server) => new Promise((resolve) => server.close(resolve));
 
 const connection = {
-  version: 1,
+  version: 2,
   serviceUrl: "http://127.0.0.1:4174",
   calendarId: "sit-private-01",
   readToken: "read_token_123456",
+  editToken: "edit_token_123456",
 };
 const setupPayload = Buffer.from(JSON.stringify(connection), "utf8").toString("base64url");
 
@@ -181,6 +206,7 @@ try {
   await page.goto(`http://127.0.0.1:4173/#calendar=${setupPayload}`, { waitUntil: "networkidle" });
   await page.locator(".lesson-item").first().waitFor({ state: "visible" });
   assert.equal(await page.locator(".lesson-item").count(), 3);
+  assert.equal(await page.locator(".lesson-edit-button").count(), 3);
   assert.equal(await page.evaluate(() => window.location.hash), "");
   assert.match(await page.locator("#calendarSubscribeButton").getAttribute("href"), /^webcal:\/\//);
   assert.equal(
@@ -189,6 +215,16 @@ try {
   );
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
   await page.screenshot({ path: path.join(outputDirectory, "connected-import-modal-390.png"), fullPage: false });
+  await page.locator("#calendarEditEventsButton").click();
+  await page.locator("#calendarEditorView").waitFor({ state: "visible" });
+  assert.equal(await page.locator("#calendarEventTitle").inputValue(), "ICT1001 Computer Programming Lab");
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+  await page.locator("#calendarEventLocation").fill("QA replacement room");
+  await page.getByRole("button", { name: "Save manual change" }).click();
+  await page.getByText("Saved. SIT Pocket is current").waitFor({ state: "visible" });
+  assert.equal(await page.locator("#calendarEventLocation").inputValue(), "QA replacement room");
+  await page.screenshot({ path: path.join(outputDirectory, "calendar-editor-390.png"), fullPage: false });
+  await page.locator("#calendarEditorBackButton").click();
   await page.locator("#doneCalendarButton").click();
   await page.locator("#calendarModal").waitFor({ state: "hidden" });
   await page.screenshot({ path: path.join(outputDirectory, "connected-390.png"), fullPage: true });
